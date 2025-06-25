@@ -60,5 +60,8 @@ public class Account {
     if (amount > getWithdrawLimit()) {
       throw new WithdrawException("Withdraw error: The amount exceeds withdraw limit");
     }
+    if (amount > getBalance()) {
+      throw new WithdrawException("Withdraw error: Not enough balance");
+    }
   }
 }
