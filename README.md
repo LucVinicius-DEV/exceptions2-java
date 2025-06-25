@@ -2,16 +2,16 @@
   <img src="https://raw.githubusercontent.com/LucVinicius-DEV/exceptions2-java/main/banner.png" alt="Banner exceptions2-java" />
 </p>
 
-# Tratando exceções em Java
+# exceptions2-java
 
 Repositório criado durante o curso de Java do professor **Nélio Alves**.
 
-Este projeto demonstra um **exemplo completo de tratamento de exceções em contexto de aplicação real**, simulando um sistema bancário com:
+Este projeto demonstra um **exemplo completo de tratamento de exceções em um sistema bancário**, abordando:
 
-- Validações e regras de negócio
-- Exceções personalizadas
-- Estrutura limpa com pacotes de entidade e exceção
-- Boas práticas de encapsulamento e mensagens de erro claras
+- Validações de regras de negócio (saldo, limite de saque, valores negativos)  
+- Exceção personalizada `WithdrawException`  
+- Estrutura limpa com pacotes de entidade e exceção  
+- Mensagens de erro claras e responsabilidade bem separada  
 
 ---
 
@@ -19,23 +19,24 @@ Este projeto demonstra um **exemplo completo de tratamento de exceções em cont
 
 ```
 exceptions2-java/
-├── application/
-│   └── Program.java
-├── model/
-│   └── entities/
-│       └── Account.java
-│   └── exceptions/
-│       └── DomainException.java
+├── src/
+│   ├── application/
+│   │   └── Program.java
+│   └── model/
+│       ├── entities/
+│       │   └── Account.java
+│       └── exceptions/
+│           └── WithdrawException.java
 ```
 
 ---
 
 ### 💡 Conceitos aplicados
 
-- **Exceções Personalizadas** – domínio controlando regras e lançando mensagens significativas.  
-- **Validações de Regras de Negócio** – como saldo insuficiente, limites de saque, valores inválidos.  
-- **Responsabilidade Separada** – tratamento no `main`, validação no modelo.  
-- **Encapsulamento** – lógica crítica protegida na entidade `Account`.
+- **Exceção Personalizada (`WithdrawException`)** – lançada sempre que as regras de saque são violadas.  
+- **Validações de Negócio** – saldo insuficiente, limite excedido, valores inválidos.  
+- **Responsabilidade Separada** – validação na entidade, tratamento no `main`.  
+- **Encapsulamento** – lógica crítica protegida dentro de `Account`.
 
 ---
 
@@ -43,8 +44,13 @@ exceptions2-java/
 
 ```java
 Account acc = new Account(number, holder, balance, withdrawLimit);
-acc.withdraw(amount);
-System.out.println("New balance: " + acc.getBalance());
+
+try {
+    acc.withdraw(amount);
+    System.out.println("New balance: " + acc.getBalance());
+} catch (WithdrawException e) {
+    System.out.println("Withdraw error: " + e.getMessage());
+}
 ```
 
 ---
@@ -58,3 +64,4 @@ Projeto baseado nas aulas do [Prof. Nélio Alves](https://github.com/nelioalves)
 ### 🔗 Licença
 
 Este repositório é de uso educacional e foi criado para fins de estudo e prática em Java.
+````0
